@@ -14,7 +14,8 @@ struct Session {
     let movie: Movie
     
     enum LanguageType: String {
-        case subtitled, dubbed
+        case subtitled = "Legendado"
+        case dubbed = "Dublado"
     }
 }
 

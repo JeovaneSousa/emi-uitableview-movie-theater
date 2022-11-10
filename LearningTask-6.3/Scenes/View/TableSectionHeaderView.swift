@@ -3,7 +3,9 @@ import UIKit
 
 class TableSectionHeaderView : UITableViewHeaderFooterView {
     static let heightConstant: CGFloat = 48
-    static let reuseId: String = "SectionHeader"
+    static var reuseId: String {
+        return String(describing: self)
+    }
     // MARK: - subviews
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -42,6 +44,15 @@ class TableSectionHeaderView : UITableViewHeaderFooterView {
         return stack
     }()
     
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func addViews(){
         addSubview(containerStackView)
     }
@@ -49,6 +60,7 @@ class TableSectionHeaderView : UITableViewHeaderFooterView {
     private func setup(){
         addViews()
         addConstraints()
+
     }
     
     private func addConstraints(){
@@ -64,5 +76,11 @@ class TableSectionHeaderView : UITableViewHeaderFooterView {
         ])
     }
     
-
+    func setup(_ cinema: Cinema) {
+        label.text = cinema.name
+        
+//        Checar se filme é favorito e preencher a Icon Image View
+    }
+    
+        
 }

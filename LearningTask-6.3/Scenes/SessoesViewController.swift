@@ -21,8 +21,14 @@ class SessoesViewController: UIViewController, UITableViewDelegate, UITableViewD
         sessoesTableView.dataSource = self
         sessoesTableView.tableHeaderView = TableHeaderView.build(from: movie!)
         loadSessoes()
+        sectionHeaderViewSetup()
 
-        
+
+    }
+    
+    func sectionHeaderViewSetup(){
+        sessoesTableView.register(TableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: TableSectionHeaderView.reuseId)
+        sessoesTableView.sectionHeaderHeight = TableSectionHeaderView.heightConstant
     }
     
     func loadSessoes(){
@@ -48,11 +54,18 @@ class SessoesViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SectionHeader") as? TableSectionHeaderView else{
-//            fatalError("Não foi possível retornar as sessões")
-//        }
-//        return
-//    }
-
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: TableSectionHeaderView.reuseId) as? TableSectionHeaderView else{
+            fatalError("Não foi possível retornar as sessões")
+        }
+        
+        let cinema = listaDeSessoes![section].cinema
+        header.setup(cinema)
+        
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
