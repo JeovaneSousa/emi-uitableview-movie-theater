@@ -1,8 +1,9 @@
 
 import UIKit
 
-class TableSectionHeaderView { // : ?
-    
+class TableSectionHeaderView : UITableViewHeaderFooterView {
+    static let heightConstant: CGFloat = 48
+    static let reuseId: String = "SectionHeader"
     // MARK: - subviews
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
@@ -41,6 +42,27 @@ class TableSectionHeaderView { // : ?
         return stack
     }()
     
-    // ?
+    private func addViews(){
+        addSubview(containerStackView)
+    }
+    
+    private func setup(){
+        addViews()
+        addConstraints()
+    }
+    
+    private func addConstraints(){
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: TableSectionHeaderView.heightConstant)
+        ])
+        
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+    
 
 }
